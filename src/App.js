@@ -77,16 +77,16 @@ class App extends Component {
           <nav class="nav-wrapper indigo">
             <div class="brand-logo center" >Todo App</div>
             <ul class="left" >
-              <li><Link to="/">Todo</Link></li>
-              <li><Link to="/done/">Done</Link></li>
+              <li><Link to="/todos">Todo</Link></li>
+              <li><Link to="/finished-todos/">Done</Link></li>
             </ul>
           </nav>
 
 
 
 
-          <Route exact path="/" component={this.Index} />
-          <Route path="/done" component={this.Done} />
+          <Route exact path="/todos" component={this.Index} />
+          <Route path="/finished-todos" component={this.Done} />
 
         </div>
       </Router>
