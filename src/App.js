@@ -2,61 +2,85 @@ import React, { Component } from 'react';
 import Todos from './Todos'
 import DoneTodos from './doneTodos'
 import AddTodo from './AddTodo'
+import todosData from "./todosData"
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
-class App extends Component {
-  state = {
-    todos: [
-      { id: 1, content: 'Build To-Do app' },
-    ],
-    doneTodos: [
-      { id: 100, content: 'Survive Friday' }
-    ]
+class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      todos: todosData
+    }
+    //this.handleChange = this.handleChange.bind(this)
+    this.deleteTodo = this.deleteTodo.bind(this);
+  }
+
+  componentDidMount() {
+    const list = window.localStorage.getItem('savedList');
+    const todosData = JSON.parse(list);
+
+    this.setState({
+      todos: todosData,
+    })
   }
 
   completeTodo = (id) => {
-
-    const todos = this.state.todos.filter(todo => {
-      this.state.doneTodos.push(todo)
-      return todo.id !== id
+    const completeTodos = this.state.todos.filter(todo => {
+      return todo.id === id
     });
+
+    const completeTodos2 = completeTodos.map(todo => {
+      return todo.completed = true
+    })
+
     this.setState({
-      todos
+      completeTodos2
+    }, () => {
+      window.localStorage.setItem('savedList', JSON.stringify(this.state.todos));
     });
   }
 
   deleteTodo = (id) => {
-    const todos = this.state.todos.filter(todo => {
-
-      return todo.id !== id
+    const todos = this.state.todos.filter(todos => {
+      return todos.id !== id
     });
     this.setState({
       todos
+    }, () => {
+      window.localStorage.setItem('savedList', JSON.stringify(this.state.todos));
     });
   }
 
   deleteDoneTodo = (id) => {
-    const doneTodos = this.state.doneTodos.filter(doneTodos => {
-      return doneTodos.id !== id
+    const todos = this.state.todos.filter(todos => {
+      return todos.id !== id
     });
     this.setState({
-      doneTodos
+      todos
+    }, () => {
+      window.localStorage.setItem('savedList', JSON.stringify(this.state.todos));
     });
   }
 
+
+
   addTodo = (todo) => {
     todo.id = Math.random();
+    todo.completed = false;
     let todos = [...this.state.todos, todo];
     this.setState({
       todos
+    }, () => {
+      window.localStorage.setItem('savedList', JSON.stringify(this.state.todos));
     });
   }
+
 
   Index = () => {
     return (
       <div>
-        <Todos todos={this.state.todos} completeTodo={this.completeTodo} />
+        <Todos todos={this.state.todos} completeTodo={this.completeTodo} deleteTodo={this.deleteTodo} />
         <AddTodo addTodo={this.addTodo} />
       </div>
     )
@@ -65,7 +89,7 @@ class App extends Component {
   Done = () => {
     return (
       <div>
-          <DoneTodos doneTodos={this.state.doneTodos} deleteDoneTodo={this.deleteDoneTodo} />
+        <DoneTodos todos={this.state.todos} deleteDoneTodo={this.deleteDoneTodo} />
       </div>
     )
   }

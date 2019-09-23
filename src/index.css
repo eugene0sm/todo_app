@@ -24,3 +24,9 @@ body {
 form{
   margin: 20px 10px;
 }
+
+.button{
+  float:right;
+  cursor: pointer;
+  
+}

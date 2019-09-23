@@ -3,11 +3,11 @@ import React, { Component } from 'react'
 
 class AddTodo extends Component {
     state = {
-        content: ''
+        text: ''
     }
     handleChange = (e) => {
         this.setState({
-            content: e.target.value
+            text: e.target.value
         });
     }
     handleSubmit = (e) => {
@@ -15,7 +15,7 @@ class AddTodo extends Component {
         // call function to add a todo
         this.props.addTodo(this.state);
         this.setState({
-            content: ''
+            text: ''
         })
     }
     render() {
@@ -23,7 +23,7 @@ class AddTodo extends Component {
             <div>
                 <form onSubmit={this.handleSubmit}>
                     <label>Add a new todo:</label>
-                    <input type="text" onChange={this.handleChange} value={this.state.content} />
+                    <input type="text" onChange={this.handleChange} value={this.state.text} />
                 </form>
             </div>
         )
