@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-const DoneTodos = ({todos, deleteDoneTodo}) => {
+const DoneTodos = ({todos, uncompleteTodo, deleteDoneTodo}) => {
 
     const doneTodoList = todos.length ? (
 
@@ -9,7 +9,8 @@ const DoneTodos = ({todos, deleteDoneTodo}) => {
             if (todo.completed === true) {
             return (
                 <div className="collection-item" key={todo.id}>
-                    <span onClick={() => {deleteDoneTodo(todo.id)}}>{todo.text}</span>
+                    <span onClick={() => {uncompleteTodo(todo.id)}} className="completed">{todo.text}</span>
+                    <a class="button" onClick={() => { deleteDoneTodo(todo.id) }}><i class="tiny material-icons">delete</i></a>
                 </div>
             )
             }

@@ -30,3 +30,8 @@ form{
   cursor: pointer;
   
 }
+
+.completed{
+  fontStyle: "italic";
+  color: "#cdcdcd";
+}

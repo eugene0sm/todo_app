@@ -41,6 +41,23 @@ class App extends React.Component {
     });
   }
 
+  uncompleteTodo = (id) => {
+    const completeTodos = this.state.todos.filter(todo => {
+      return todo.id === id
+    });
+
+    const completeTodos2 = completeTodos.map(todo => {
+      return todo.completed = false
+    })
+
+    this.setState({
+      completeTodos2
+    }, () => {
+      window.localStorage.setItem('savedList', JSON.stringify(this.state.todos));
+    });
+  }
+
+
   deleteTodo = (id) => {
     const todos = this.state.todos.filter(todos => {
       return todos.id !== id
@@ -89,7 +106,7 @@ class App extends React.Component {
   Done = () => {
     return (
       <div>
-        <DoneTodos todos={this.state.todos} deleteDoneTodo={this.deleteDoneTodo} />
+        <DoneTodos todos={this.state.todos} uncompleteTodo={this.uncompleteTodo} deleteDoneTodo={this.deleteDoneTodo} />
       </div>
     )
   }
